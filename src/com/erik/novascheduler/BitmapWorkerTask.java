@@ -60,7 +60,7 @@ public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
 		}
 	}
 	
-	private Bitmap loadBitmap (int arg)
+	/*private Bitmap loadBitmap (int arg)
 	{
 		Bitmap resizedBitmap = null;
         	
@@ -80,7 +80,7 @@ public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
         }
         
         return resizedBitmap;
-	}
+	}*/
 	
 public Bitmap getResizedBitmap(Bitmap bm, double heightPercent, int amount, int position) {
 	    

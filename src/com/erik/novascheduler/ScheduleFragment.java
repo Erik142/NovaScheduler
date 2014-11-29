@@ -61,15 +61,21 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
 			transformation.position = ((position - 1) % 5);*/
 		try {
 			int week;
+			int position = WorkerClass.position;
+			
 			String urlString;
 			
-			if (position % 5 == 0)
+			if (position >= 0 && position <=10)
 			{
-				week = position / 5;
+				week = (position / 5) + 1;
+			}
+			else if (position % 5 == 0)
+			{
+				week = (position / 5) - 1;
 				Log.i("NovaScheduler", "Apply bitmap, week: " + week);
 			}
 			else {
-				week = (position / 5) + 1;
+				week = position / 5;
 				Log.i("NovaScheduler", "Apply bitmap, week: " + week);
 			}
 			
@@ -78,6 +84,7 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
 			
 			Picasso.with(WorkerClass.context).load(urlString).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, ((position-1) % 5), 95)).into(mImageView);
 			WorkerClass.mSpinner.setSelection((week-1));
+			
 			//WorkerClass.mSpinner.setSelected(false);
 			
 		} catch (Exception e) {

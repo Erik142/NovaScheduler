@@ -10,6 +10,12 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 	public TabsPagerAdapter mTabsPagerAdapter;
 	private static int position;
 	
+	public void setPosition(int position)
+	{
+		this.position = position;
+		WorkerClass.position = position;
+	}
+	
 	public int getCurrentPosition()
 	{
 		return this.position;
@@ -39,11 +45,13 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 		{
 			mViewPager.setCurrentItem(mTabsPagerAdapter.NUM_PAGES, false);
 			WorkerClass.position = mTabsPagerAdapter.NUM_PAGES;
+			
 		}
 		if (position == mTabsPagerAdapter.NUM_PAGES + 1)
 		{
 			mViewPager.setCurrentItem(1, false);
 			WorkerClass.position = 1;
+			
 		}
 		
 		WorkerClass.mPageChangeListener = this;

@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.R.integer;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -16,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -29,7 +27,7 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
-	private static final OnPageChangeListener OnPageChangeListener = null;
+	//private static final OnPageChangeListener OnPageChangeListener = null;
 
 	public static Activity mainActivity;
 
@@ -64,6 +62,7 @@ public class MainActivity extends FragmentActivity {
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 		mSpinner = new Spinner(this);
+		WorkerClass.mSpinner = mSpinner;
 		
 		choises = new ArrayList<String>();
 		mViewPager = (ViewPager)findViewById(R.id.pager);
@@ -200,10 +199,15 @@ public class MainActivity extends FragmentActivity {
 		
 		
 		actionBar.setCustomView(mSpinner, layoutParams);
-		actionBar.setDisplayShowCustomEnabled(true);
+		/*actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(false);*/
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
 		
 		
 		mViewPager.setCurrentItem(((5 * WorkerClass.week)-(5-dayOfWeek)));
+		WorkerClass.position = ((5 * WorkerClass.week)-(5-dayOfWeek));
+		
 		Log.i("NovaScheduler", "viewPager Start position: " + (dayOfWeek * WorkerClass.week));
 		
 		//Ifall skola och/eller klass inte ställts in, gör detta först. Ladda annars in schema som vanligt.

@@ -27,7 +27,8 @@ public class DownloadTask extends AsyncTask<String, Void, Void> {
 	private int schoolID;
 	private String freeTextBox;
 	private TabsPagerAdapter mTabsPagerAdapter;
-	private int week, width, height;
+	private int width, height;
+	private int week;
 	private Activity mainActivity;
 	
 	public DownloadTask (Context c, Activity mainActivity, TabsPagerAdapter tpa, int week)

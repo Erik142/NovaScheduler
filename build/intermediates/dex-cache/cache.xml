@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\libs\picasso-2.3.4.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="3b646ddbdac8a33fc45b64564011da81d23e4635">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\picasso-2.3.4-d5ee0ba2883a652496058b71b4463c6c036ad1bd.jar" />
+    </item>
+    <item
+        jar="C:\Users\ErikWahlberger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-ea3326f17b49b434c66f6add1b97d62890b26531.jar" />
+    </item>
+
+</items>

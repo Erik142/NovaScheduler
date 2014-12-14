@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="schoolArray">
+        <item name="Almas">Almåsskolan</item>
+        <item name="Bodaskolan">Bodaskolan</item>
+        <item name="Backang">Bäckängsgymnasiet</item>
+        <item name="Teknis">Sven Erikssonsgymnasiet</item>
+        <item name="Viskastrand">Viskastrandsgymnasiet</item>
+    </string-array>
+    
+    <string-array name="schoolArrayValues">
+        <item name="Almas">63300</item>
+        <item name="Bodaskolan">20600</item>
+        <item name="Backang">64310</item>
+        <item name="Teknis">91720</item>
+        <item name="Viskastrand">63290</item>
+    </string-array>
+</resources>

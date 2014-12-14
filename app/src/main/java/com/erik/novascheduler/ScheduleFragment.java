@@ -87,7 +87,7 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
             Log.i("NovaScheduler", "weekURL: " + url);
             //Log.i("NovaScheduler", "ScheduleFragment, newPosition: " + newPosition);
 
-            if (argPosition == NUM_PAGES)
+            if (argPosition == NUM_PAGES+1)
             {
 
                 Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, 0, 95,52)).into(mImageView);

@@ -61,7 +61,7 @@ public class BitmapResizeTransformation implements Transformation
 	
 	@Override
 	public String key() { 
-		return "bitMap" + (position*week);
+		return "bitMap" + ((position + 1) * week);
 		}
 
     public static Bitmap cropImage (Bitmap imgBitmap, int x, int y)

@@ -70,6 +70,7 @@ public class MainActivity extends FragmentActivity {
 		}
 		else 
 		{
+            initDayWeek();
             prepareForDownload();   //Initiera url för schema
             initVars();             //Initiera variabler
             DownloadAndUpdate();    //Sätt rätt position samt titel på ActionBar
@@ -81,6 +82,7 @@ public class MainActivity extends FragmentActivity {
     protected void onStart()
     {
         super.onStart();
+        initDayWeek();
         if (mTabsPagerAdapter != null)
         {
             mTabsPagerAdapter.notifyDataSetChanged();
@@ -133,26 +135,8 @@ public class MainActivity extends FragmentActivity {
 		getActionBar().setTitle(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
 	}
 
-    public void initVars()
+    private void initDayWeek()
     {
-        //Få spinner att ligga till höger i ActionBar
-        layoutParams = new ActionBar.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                Gravity.RIGHT | Gravity.CENTER_VERTICAL);
-
-        mSpinner = new Spinner(this);
-
-        choises = new ArrayList<String>();
-        mViewPager = (ViewPager)findViewById(R.id.pager);
-
-        for (int i = 0; i < 52; i++)
-        {
-            choises.add(("Vecka " + (i + 1)));
-
-        }
-
-        mSpinnerAdapter = new mySpinnerAdapter(this, choises);
-
         dayOfWeek = new GregorianCalendar().get(Calendar.DAY_OF_WEEK);
         week = new GregorianCalendar().get(Calendar.WEEK_OF_YEAR);
 
@@ -180,6 +164,29 @@ public class MainActivity extends FragmentActivity {
         Log.i("NovaScheduler", "dayofWeek: " + dayOfWeek);
         Log.i("NovaScheduler", "week: " + week);
         Log.i("NovaScheduler", "viewPager Start position: " + ((5 * week)-(5-dayOfWeek)));
+    }
+
+    public void initVars()
+    {
+        //Få spinner att ligga till höger i ActionBar
+        layoutParams = new ActionBar.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+                Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+
+        mSpinner = new Spinner(this);
+
+        choises = new ArrayList<String>();
+        mViewPager = (ViewPager)findViewById(R.id.pager);
+
+        for (int i = 0; i < 52; i++)
+        {
+            choises.add(("Vecka " + (i + 1)));
+
+        }
+
+        mSpinnerAdapter = new mySpinnerAdapter(this, choises);
+
+
 
         mTabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), url);
 

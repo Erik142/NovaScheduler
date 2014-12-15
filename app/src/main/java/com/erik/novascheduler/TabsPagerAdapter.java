@@ -1,7 +1,5 @@
 package com.erik.novascheduler;
 
-import com.erik.novascheduler.ScheduleFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,9 +10,9 @@ import java.util.GregorianCalendar;
 
 public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 	
-	private CharSequence[] pageTitles = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"};
-	public int NUM_PAGES;
-    private String url;
+	private final CharSequence[] pageTitles = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"};
+	public final int NUM_PAGES;
+    private final String url;
 	
     public TabsPagerAdapter(FragmentManager fm, String url) {
 
@@ -46,21 +44,6 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
         // get item count - equal to number of tabs
         return NUM_PAGES + 2;
     }
-    
-    /*public int getPosition (Object object)
-    {
-    	return this.getItemPosition(object);
-    }*/
-    
-    /*@Override
-    public int getItemPosition (Object object)
-    {
-    	if (object instanceof UpdateableFragment) {
-            ((UpdateableFragment) object).update();
-        }
-        //don't return POSITION_NONE, avoid fragment recreation. 
-        return super.getItemPosition(object);
-    }*/
 
     @Override
     public int getItemPosition (Object object)
@@ -92,7 +75,6 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     	else {
     		return pageTitles[(position - 1)%5];
 		}
-        //return "" + position;
     }
 
     private boolean isLeapYear()

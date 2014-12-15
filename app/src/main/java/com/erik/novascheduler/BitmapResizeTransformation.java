@@ -1,15 +1,14 @@
 package com.erik.novascheduler;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.squareup.picasso.Transformation;
 
 public class BitmapResizeTransformation implements Transformation
 {
 	
-	private int amount, position, week;
-	private double heightPercent;
+	private final int amount, position, week;
+	private final double heightPercent;
 	
 	public BitmapResizeTransformation(int amount, int position, double heightPercent, int week)
 	{
@@ -25,25 +24,13 @@ public class BitmapResizeTransformation implements Transformation
 		Bitmap resizedBitmap = null;
 		
 		try {
-				
-	
+
 		int width = (bm.getWidth() - 5);
 	    int height = bm.getHeight();
-	    
-	    
-	    
+
 	    int startwidth = (width/5)*position;
-	    
-	    //Log.i("NovaScheduler", "Bitmap Start width: " + startwidth);
-	    
-	    //Log.i("NovaScheduler", ("Bitmap width: " + width));
-	    //Log.i("NovaScheduler", ("Bitmap height: " + height));
-	    
 	    int scaleWidth = (int)(width/amount);
 	    int scaleHeight = (int)((heightPercent / 100) * height);
-	    
-	    //Log.i("NovaScheduler", ("Scaled Bitmap width: " + scaleWidth));
-	    //Log.i("NovaScheduler", ("Scaled Bitmap height: " + scaleHeight));
 
 	    resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
 		}
@@ -64,7 +51,7 @@ public class BitmapResizeTransformation implements Transformation
 		return "bitMap" + ((position + 1) * week);
 		}
 
-    public static Bitmap cropImage (Bitmap imgBitmap, int x, int y)
+    private static Bitmap cropImage (Bitmap imgBitmap, int x, int y)
     {
         int xSize = x;
         int ySize = y;

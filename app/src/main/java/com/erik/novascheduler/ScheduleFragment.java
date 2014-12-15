@@ -1,16 +1,16 @@
 package com.erik.novascheduler;
 
-import com.squareup.picasso.Picasso;
-
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-public class ScheduleFragment extends Fragment implements UpdateableFragment {
+import com.squareup.picasso.Picasso;
+
+public class ScheduleFragment extends Fragment {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	
@@ -42,9 +42,6 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
 		argPosition = getArguments() != null ? getArguments().getInt("position") : 1;
         NUM_PAGES = getArguments() != null ? getArguments().getInt("NUM_PAGES") : 1;
         url = getArguments().getString("url");
-        //position = WorkerClass.mViewPager.getCurrentItem();
-		//position = WorkerClass.position;
-		//position -= 1;
 	}
 	
 	@Override
@@ -65,14 +62,6 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
         try {
             int week;
 
-            String urlString;
-
-
-			/*if (position >= 0 && position <=10)
-			{
-				week = (position / 5) + 1;
-                Log.i("NovaScheduler", "Apply bitmap, week: " + week);
-			}*/
             if (argPosition % 5 == 0)
             {
                 week = (argPosition / 5);
@@ -85,7 +74,6 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
 
             url = url.replace("week=", ("week=" + week));
             Log.i("NovaScheduler", "weekURL: " + url);
-            //Log.i("NovaScheduler", "ScheduleFragment, newPosition: " + newPosition);
 
             if (argPosition == NUM_PAGES+1)
             {
@@ -106,14 +94,6 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
             Picasso.with(getActivity()).load(R.drawable.noschedule);
         }
     }
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		loadBitmap();
-    }
-	
-	
 	}
 
 

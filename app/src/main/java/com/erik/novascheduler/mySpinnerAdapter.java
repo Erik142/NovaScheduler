@@ -1,7 +1,5 @@
 package com.erik.novascheduler;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class mySpinnerAdapter extends BaseAdapter {
 
-	private List<String> mList;
-	private LayoutInflater mInflater;
+	private final List<String> mList;
+	private final LayoutInflater mInflater;
 	
 	public mySpinnerAdapter(Context parentContext, List<String> stringList)
 	{

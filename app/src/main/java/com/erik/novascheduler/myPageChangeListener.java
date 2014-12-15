@@ -9,10 +9,9 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 	
 	public ViewPager mViewPager;
 	public TabsPagerAdapter mTabsPagerAdapter;
-	private static int position;
-    private int NUM_PAGES;
+    private final int NUM_PAGES;
     public boolean spinnerByCode;
-    private Spinner mSpinner;
+    private final Spinner mSpinner;
 
     public myPageChangeListener(int pages, Spinner mSpinner)
     {
@@ -20,16 +19,6 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
         this.mSpinner = mSpinner;
         Log.i("NovaScheduler", "myPageChangeListener, NUM_PAGES = " + this.NUM_PAGES);
     }
-
-	public void setPosition(int position)
-	{
-		this.position = position;
-	}
-	
-	public int getCurrentPosition()
-	{
-		return this.position;
-	}
 	
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
@@ -48,8 +37,6 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
         // TODO Auto-generated method stub
         Log.i("NovaScheduler", "OnPageSelected Position: " + position);
 
-        this.position = position;
-
         if (position == 0) {
             mViewPager.setCurrentItem((mTabsPagerAdapter.NUM_PAGES), false);
             //mTabsPagerAdapter.notifyDataSetChanged();
@@ -65,37 +52,12 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 
             if (position % 5 == 0)
             {
-
                 mSpinner.setSelection((position/5)-1);
-                //Log.i("NovaScheduler", "Apply bitmap, week: " + week);
             }
             else {
-
                 mSpinner.setSelection((position/5));
-                //Log.i("NovaScheduler", "Apply bitmap, week: " + week);
             }
         }
-
-
-
-
-
-        /*if (position >= 0 && position <=10)
-        {
-            WorkerClass.week = (position / 5) + 1;
-            Log.i("NovaScheduler", "Apply bitmap, week: " + WorkerClass.week);
-        }
-        else if (position % 5 == 0)
-        {
-            WorkerClass.week = (position / 5);
-            Log.i("NovaScheduler", "Apply bitmap, week: " + WorkerClass.week);
-        }
-        else {
-            WorkerClass.week = position / 5;
-            Log.i("NovaScheduler", "Apply bitmap, week: " + WorkerClass.week);
-        }
-
-        mTabsPagerAdapter.notifyDataSetChanged();*/
 	}
 
 }

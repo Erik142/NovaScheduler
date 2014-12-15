@@ -13,7 +13,7 @@ public class NovaScheduler extends Application {
 		super.onCreate();
 		context = getApplicationContext();
 	}
-	
+
 	public Context getAppContext()
 	{
 		return NovaScheduler.context;

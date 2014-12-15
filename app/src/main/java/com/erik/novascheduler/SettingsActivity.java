@@ -1,9 +1,9 @@
 package com.erik.novascheduler;
 
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -50,6 +50,8 @@ public class SettingsActivity extends Activity {
 		{
 			if (MainActivity.class.isInstance(MainActivity.mainActivity))
 			{
+                ((MainActivity)MainActivity.mainActivity).prepareForDownload();
+                ((MainActivity)MainActivity.mainActivity).initVars();
 				((MainActivity)MainActivity.mainActivity).DownloadAndUpdate();
 				((MainActivity)MainActivity.mainActivity).setActionBarTitle();
 			}

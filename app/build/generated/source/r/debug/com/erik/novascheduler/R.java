@@ -26,7 +26,7 @@ public final class R {
         public static final int noschedule=0x7f020004;
     }
     public static final class id {
-        public static final int accept_settings=0x7f0a0007;
+        public static final int accept_settings=0x7f0a0008;
         public static final int action_settings=0x7f0a0005;
         public static final int dropDownItem=0x7f0a0004;
         public static final int mImageView=0x7f0a0003;
@@ -34,6 +34,7 @@ public final class R {
         public static final int pager_header=0x7f0a0002;
         public static final int refresh=0x7f0a0006;
         public static final int spinner=0x7f0a0000;
+        public static final int todays_schedule=0x7f0a0007;
     }
     public static final class layout {
         public static final int actionbarspinner=0x7f030000;
@@ -50,6 +51,7 @@ public final class R {
         public static final int app_name=0x7f070001;
         public static final int hello_world=0x7f070002;
         public static final int refresh=0x7f070003;
+        public static final int todays_schedule=0x7f070004;
     }
     public static final class style {
         /** 
@@ -62,6 +64,7 @@ public final class R {
          */
         public static final int AppBaseTheme=0x7f080000;
         /**  All customizations that are NOT specific to a particular API-level can go here. 
+ All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
     }

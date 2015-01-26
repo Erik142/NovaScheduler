@@ -1,11 +1,13 @@
 package com.erik.novascheduler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 
@@ -46,15 +48,27 @@ public class SettingsActivity extends Activity {
 	{
 		super.onDestroy();
 		
-		if (schoolID != Integer.parseInt(mPreferences.getString("school_key", null)) || freeTextBox != mPreferences.getString("freeTextBox_key", null))
+		if (!isSettingsEmpty())
 		{
 			if (MainActivity.class.isInstance(MainActivity.mainActivity))
 			{
-                ((MainActivity)MainActivity.mainActivity).prepareForDownload();
-                ((MainActivity)MainActivity.mainActivity).initVars();
-				((MainActivity)MainActivity.mainActivity).DownloadAndUpdate();
-				((MainActivity)MainActivity.mainActivity).setActionBarTitle();
+                if (!((MainActivity)MainActivity.mainActivity).getStatus()) {
+                    ((MainActivity) MainActivity.mainActivity).initDayWeek();
+                    ((MainActivity) MainActivity.mainActivity).initVars();
+                    ((MainActivity) MainActivity.mainActivity).prepareForDownload();
+                    ((MainActivity) MainActivity.mainActivity).DownloadTodaysSchedule();
+                    ((MainActivity) MainActivity.mainActivity).setActionBarTitle();
+                }
+                else
+                {
+                    ((MainActivity)MainActivity.mainActivity).updateURL();
+                    ((MainActivity) MainActivity.mainActivity).setActionBarTitle();
+                }
 			}
+            else
+            {
+                startActivity(new Intent(this, MainActivity.class));
+            }
 		}
 	}
 
@@ -70,12 +84,44 @@ public class SettingsActivity extends Activity {
 	    //respond to menu item selection
 		switch (item.getItemId()) {
 		case R.id.accept_settings:
-		
-			this.finish();
+
+            if (!isSettingsEmpty()) {
+                this.finish();
+            }
+            else
+            {
+                Toast.makeText(this, "Det saknas fortfarande nödvändiga inställningar för att visa schemat!", Toast.LENGTH_SHORT).show();
+            }
 			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+    @Override
+    public void onBackPressed() {
+        if (!isSettingsEmpty())
+        {
+            finish();
+        }
+        else
+        {
+            Toast.makeText(this, "Det saknas fortfarande nödvändiga inställningar för att visa schemat!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isSettingsEmpty()
+    {
+        try
+        {
+            schoolID = Integer.parseInt(mPreferences.getString("school_key", null));
+            freeTextBox = mPreferences.getString("freeTextBox_key", null);
+            return false;
+        }
+        catch (Exception e)
+        {
+            return true;
+        }
+    }
 
 }

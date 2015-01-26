@@ -7,15 +7,16 @@ import com.squareup.picasso.Transformation;
 public class BitmapResizeTransformation implements Transformation
 {
 	
-	private final int amount, position, week;
+	//private final int amount, position, week;
+    final int position;
 	private final double heightPercent;
 	
-	public BitmapResizeTransformation(int amount, int position, double heightPercent, int week)
+	public BitmapResizeTransformation(int position, double heightPercent)
 	{
-		this.amount = amount;
+		//this.amount = amount;
 		this.position = position;
 		this.heightPercent = heightPercent;
-        this.week = week;
+        //this.week = week;
 	}
 	
 	@Override 
@@ -28,11 +29,14 @@ public class BitmapResizeTransformation implements Transformation
 		int width = (bm.getWidth() - 5);
 	    int height = bm.getHeight();
 
-	    int startwidth = (width/5)*position;
-	    int scaleWidth = (int)(width/amount);
+	    //int startwidth = (width/5)*position;
+	    //int scaleWidth = (int)(width/amount);
+        int startwidth = 0;
+        int scaleWidth = width;
 	    int scaleHeight = (int)((heightPercent / 100) * height);
 
-	    resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
+	    //resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
+        resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
 		}
 		catch (NullPointerException e)
 		{
@@ -47,9 +51,12 @@ public class BitmapResizeTransformation implements Transformation
 	}
 	
 	@Override
-	public String key() { 
+	/*public String key() {
 		return "bitMap" + ((position + 1) * week);
-		}
+		}*/
+    public String key() {
+        return "bitMap" + (position);
+    }
 
     private static Bitmap cropImage (Bitmap imgBitmap, int x, int y)
     {

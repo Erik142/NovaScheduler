@@ -1,3 +1,8 @@
 G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\classes\debug
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\picasso-2.3.4-d5ee0ba2883a652496058b71b4463c6c036ad1bd.jar
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-ea3326f17b49b434c66f6add1b97d62890b26531.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-a9beda3e922d43efbdbfc5e9f019d5b7ea61d5e0.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-2.2.0-b67bb31099b7f1fadd6f1e2cd5487b8e77b66bec.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okio-1.2.0-85ac32b21fe1205891cf052d49cc8126ddcc681e.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\picasso-2.4.0-cbfe34caa85968c6e7a812e67fc87acb12e4a475.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-208edde624f4cda2a38bbaf96d169fd5317661ba.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okhttp-2.2.0-4b7ad69bf85e2d507545687197e2ca4373737477.jar
+G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-d60d605376c083eb073625b89c164b1a789384b0.jar

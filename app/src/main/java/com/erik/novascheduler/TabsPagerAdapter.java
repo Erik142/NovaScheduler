@@ -12,7 +12,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 	
 	private final CharSequence[] pageTitles = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"};
 	public final int NUM_PAGES;
-    private final String url;
+    private String url;
 	
     public TabsPagerAdapter(FragmentManager fm, String url) {
 
@@ -48,6 +48,10 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition (Object object)
     {
+        if (object instanceof UpdateableFragment) {
+            ((UpdateableFragment) object).update(url);
+        }
+
         ScheduleFragment f = (ScheduleFragment)object;
         int position = f.getPosition();
 
@@ -85,5 +89,11 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
         else {
             return false;
         }
+    }
+
+    public void updateURL(String newUrl)
+    {
+        this.url = newUrl;
+        Log.i("NovaScheduler", "TabsPagerAdapter, updated url: " + url);
     }
 }

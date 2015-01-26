@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends Fragment implements UpdateableFragment {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	
@@ -48,7 +49,7 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        Log.i("NovaScheduler", ("arg = " + argPosition));
+        //Log.i("NovaScheduler", ("arg = " + argPosition));
         View rootView = inflater.inflate(R.layout.scheduleactivity, container, false);
         mImageView = (ImageView)rootView.findViewById(R.id.mImageView);
 
@@ -73,27 +74,51 @@ public class ScheduleFragment extends Fragment {
             }
 
             url = url.replace("week=", ("week=" + week));
+
+
+
+
             Log.i("NovaScheduler", "weekURL: " + url);
 
             if (argPosition == NUM_PAGES+1)
             {
 
-                Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, 0, 95,52)).into(mImageView);
+                //Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, 0, 95,52)).into(mImageView);
+                url = url.replace("day", ("day=" + getDay(1)));
             }
             else if (argPosition == 0)
             {
-                Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, 4, 95,1)).into(mImageView);
+                //Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, 4, 95,1)).into(mImageView);
+                url = url.replace("day", ("day=" + getDay(5)));
             }
             else
             {
-                Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, ((argPosition-1) % 5), 95,week)).into(mImageView);
+                //Picasso.with(getActivity()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(5, ((argPosition-1) % 5), 95,week)).into(mImageView);
+                url = url.replace("day=", ("day=" + getDay(argPosition)));
             }
 
+            Picasso.with(getActivity().getApplicationContext()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(argPosition,95)).into(mImageView);
+
+            Picasso.with(getActivity().getApplicationContext()).setIndicatorsEnabled(true);
         } catch (Exception e) {
             // TODO: handle exception
-            Picasso.with(getActivity()).load(R.drawable.noschedule);
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.noschedule);
         }
     }
-	}
+
+    private int getDay(int position)
+    {
+        return (int)Math.pow(2, ((position - 1) % 5));
+    }
+
+    @Override
+    public void update(String newUrl) {
+        if (!url.equals(newUrl))
+        {
+            url = newUrl;
+            loadBitmap();
+        }
+    }
+}
 
 

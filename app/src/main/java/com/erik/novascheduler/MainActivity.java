@@ -31,6 +31,7 @@ import java.util.Locale;
 public class MainActivity extends FragmentActivity {
 
 	public static Activity mainActivity;
+    public static boolean active = false;
 
     private myPageChangeListener mPageChangeListener;
     private SharedPreferences appPreferences;
@@ -38,10 +39,11 @@ public class MainActivity extends FragmentActivity {
 	private LayoutParams layoutParams;
 	private List<String> choises;
 	private Spinner mSpinner;
-	private int dayOfWeek, week;
+	private int dayOfWeek, week, schoolID;
 	private TabsPagerAdapter mTabsPagerAdapter;
 	private ViewPager mViewPager;
-	private String url = "http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=/sv-se&type=-1&id=&period=&week=&mode=2&printer=0&colors=32&head=0&clock=0&foot=0&day=0&width=&height=";
+	private String url = "http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=/sv-se&type=-1&id=&period=&week=&mode=2&printer=0&colors=32&head=0&clock=0&foot=0&day=&width=&height=";
+    private String freeTextBox;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,8 @@ public class MainActivity extends FragmentActivity {
             initDayWeek();
             prepareForDownload();   //Initiera url för schema
             initVars();             //Initiera variabler
-            DownloadAndUpdate();    //Sätt rätt position samt titel på ActionBar
+            DownloadTodaysSchedule();    //Sätt rätt position samt titel på ActionBar
+            active = true;
 		}
 
 	}
@@ -86,6 +89,7 @@ public class MainActivity extends FragmentActivity {
         if (mTabsPagerAdapter != null)
         {
             mTabsPagerAdapter.notifyDataSetChanged();
+            DownloadTodaysSchedule();
         }
         Log.i("NovaScheduler", "OnStart()");
     }
@@ -119,6 +123,13 @@ public class MainActivity extends FragmentActivity {
 			DownloadAndUpdate();
 			
 			return true;
+
+            case R.id.todays_schedule:
+
+            DownloadTodaysSchedule();
+
+            return true;
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -126,16 +137,24 @@ public class MainActivity extends FragmentActivity {
 	
 	public void DownloadAndUpdate()
 	{
-		mViewPager.setCurrentItem(((5 * week)-(5-dayOfWeek)));
+		//mViewPager.setCurrentItem(((5 * week)-(5-dayOfWeek)));
 		setActionBarTitle();
+        mTabsPagerAdapter.notifyDataSetChanged();
 	}
+
+    public void DownloadTodaysSchedule()
+    {
+        mViewPager.setCurrentItem(((5 * week)-(5-dayOfWeek)));
+        setActionBarTitle();
+        mTabsPagerAdapter.notifyDataSetChanged();
+    }
 	
 	public void setActionBarTitle()
 	{
 		getActionBar().setTitle(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
 	}
 
-    private void initDayWeek()
+    public void initDayWeek()
     {
         dayOfWeek = new GregorianCalendar().get(Calendar.DAY_OF_WEEK);
         week = new GregorianCalendar().get(Calendar.WEEK_OF_YEAR);
@@ -168,6 +187,8 @@ public class MainActivity extends FragmentActivity {
 
     public void initVars()
     {
+        appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         //Få spinner att ligga till höger i ActionBar
         layoutParams = new ActionBar.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
@@ -205,11 +226,9 @@ public class MainActivity extends FragmentActivity {
                                        int position, long arg3) {
                 // TODO Auto-generated method stub
 
-                if (!mPageChangeListener.spinnerByCode)
-                {
-                    mViewPager.setCurrentItem((5*(position+1)-4));
-                }
-                mPageChangeListener.spinnerByCode = false;
+                Log.i("NovaScheduler", "onItemSelected, position: " + position);
+
+                mPageChangeListener.updateSpinner(position);
             }
 
             @Override
@@ -232,13 +251,14 @@ public class MainActivity extends FragmentActivity {
     {
         int width = 0;
         int height = 0;
-        int schoolID = 0;
-        String freeTextBox = null;
+        schoolID = 0;
+        freeTextBox = null;
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        width = size.x * 5;
+        //width = size.x * 5;
+        width = size.x;
 
         if (size.x >= 1080)
         {
@@ -296,5 +316,67 @@ public class MainActivity extends FragmentActivity {
 
         Log.i("NovaScheduler", "freeTextBox: " + freeTextBox);
         Log.i("NovaScheduler", "New GregorianCalendarWeek: " + new GregorianCalendar().get(Calendar.WEEK_OF_YEAR));
+    }
+
+    public void updateURL()
+    {
+        appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        int oldSchoolID = schoolID;
+        String oldFreeTextBox = freeTextBox;
+
+        try {
+
+            schoolID = Integer.parseInt(appPreferences.getString("school_key", null).trim());
+            freeTextBox = appPreferences.getString("freeTextBox_key", null);
+
+            Log.i("NovaScheduler", "new freeTextBox: " + freeTextBox);
+            Log.i("NovaScheduler", "new schoolID: " + schoolID);
+
+            if (schoolID != oldSchoolID || !freeTextBox.equals(oldFreeTextBox))
+            {
+                if (oldFreeTextBox != null)
+                {
+
+                    url = url.replace(("&id=" + oldFreeTextBox), ("&id=" + freeTextBox));
+                }
+                else
+                {
+
+                    url = url.replace("&id=", ("&id=" + freeTextBox));
+                }
+
+                if (oldSchoolID != 0)
+                {
+                    url = url.replace(("&schoolid=" + oldSchoolID), ("&schoolid=" + schoolID));
+                }
+                else
+                {
+                    url = url.replace("&schoolid=", ("&schoolid=" + schoolID));
+                }
+            }
+
+        Log.i("NovaScheduler", "new url: " + url);
+
+        mTabsPagerAdapter.updateURL(url);
+        mTabsPagerAdapter.notifyDataSetChanged();
+
+
+        } catch (NumberFormatException e) {
+            // TODO: handle exception
+            if (e.equals(schoolID))
+            {
+                schoolID = 0;
+            }
+            if (e.equals(freeTextBox))
+            {
+                freeTextBox = null;
+            }
+        }
+    }
+
+    public boolean getStatus()
+    {
+        return active;
     }
 }

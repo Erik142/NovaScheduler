@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 
 public class ScheduleFragment extends Fragment implements UpdateableFragment {
 	
@@ -52,6 +52,8 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
         //Log.i("NovaScheduler", ("arg = " + argPosition));
         View rootView = inflater.inflate(R.layout.scheduleactivity, container, false);
         mImageView = (ImageView)rootView.findViewById(R.id.mImageView);
+
+
 
         loadBitmap();
 
@@ -97,12 +99,16 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
                 url = url.replace("day=", ("day=" + getDay(argPosition)));
             }
 
-            Picasso.with(getActivity().getApplicationContext()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(argPosition,95)).into(mImageView);
+            //Picasso.with(getActivity().getApplicationContext()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(argPosition,95)).into(mImageView);
 
-            Picasso.with(getActivity().getApplicationContext()).setIndicatorsEnabled(true);
+            //Picasso.with(getActivity().getApplicationContext()).setIndicatorsEnabled(true);
+
+            ImageLoader.getInstance().displayImage(url, mImageView);
+
         } catch (Exception e) {
             // TODO: handle exception
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.noschedule);
+            //Picasso.with(getActivity().getApplicationContext()).load(R.drawable.noschedule);
+            mImageView.setImageResource(R.drawable.noschedule);
         }
     }
 

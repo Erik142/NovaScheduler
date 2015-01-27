@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ToolBar"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:title="@string/app_name"
+    app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_name"
+        android:text="@string/app_name"/>
+
+</android.support.v7.widget.Toolbar><!-- From: file:/G:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/layout/toolbar.xml -->

@@ -9,25 +9,18 @@
         <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-2.2.0-b67bb31099b7f1fadd6f1e2cd5487b8e77b66bec.jar" />
     </item>
     <item
-        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.2.0\959c454243581fdf730abfd4f4745441724bcf2c\okhttp-2.2.0.jar"
+        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.3\a85588bec3e2c4584d593d3f15df1677321bca72\universal-image-loader-1.9.3.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="959c454243581fdf730abfd4f4745441724bcf2c">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okhttp-2.2.0-4b7ad69bf85e2d507545687197e2ca4373737477.jar" />
+        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-ab261929187f8cf7e6305f9de97cecb5724d8fab.jar" />
     </item>
     <item
-        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
+        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-208edde624f4cda2a38bbaf96d169fd5317661ba.jar" />
-    </item>
-    <item
-        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.2.0\c0b52915a48fa91b1b94a28d4a2997bac5f524df\okio-1.2.0.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="c0b52915a48fa91b1b94a28d4a2997bac5f524df">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okio-1.2.0-85ac32b21fe1205891cf052d49cc8126ddcc681e.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-50aa4827436667193d101c057f4470d006301063.jar" />
     </item>
     <item
         jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.4.0\f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2\picasso-2.4.0.jar"
@@ -37,18 +30,39 @@
         <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\picasso-2.4.0-cbfe34caa85968c6e7a812e67fc87acb12e4a475.jar" />
     </item>
     <item
-        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
+        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.2.0\959c454243581fdf730abfd4f4745441724bcf2c\okhttp-2.2.0.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-d60d605376c083eb073625b89c164b1a789384b0.jar" />
+        sha1="959c454243581fdf730abfd4f4745441724bcf2c">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okhttp-2.2.0-4b7ad69bf85e2d507545687197e2ca4373737477.jar" />
     </item>
     <item
-        jar="C:\Users\ErikWahlberger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
+        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-a9beda3e922d43efbdbfc5e9f019d5b7ea61d5e0.jar" />
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-4d8b854ff21325647dde0c658d7029ffc2a41449.jar" />
+    </item>
+    <item
+        jar="C:\Users\ErikWahlberger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-64db685f8ed116ebd84085748406ec1866708f75.jar" />
+    </item>
+    <item
+        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.2.0\c0b52915a48fa91b1b94a28d4a2997bac5f524df\okio-1.2.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="c0b52915a48fa91b1b94a28d4a2997bac5f524df">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\okio-1.2.0-85ac32b21fe1205891cf052d49cc8126ddcc681e.jar" />
+    </item>
+    <item
+        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-bd193963b449af40dc3c65b8964af56f369ed169.jar" />
     </item>
 
 </items>

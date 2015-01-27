@@ -6,21 +6,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,15 +37,17 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends ActionBarActivity {
 
 	public static Activity mainActivity;
     public static boolean active = false;
 
+    private Toolbar toolbar;
+
     private myPageChangeListener mPageChangeListener;
     private SharedPreferences appPreferences;
 	private mySpinnerAdapter mSpinnerAdapter;
-	private LayoutParams layoutParams;
+	private ActionBar.LayoutParams layoutParams;
 	private List<String> choises;
 	private Spinner mSpinner;
 	private int dayOfWeek, week, schoolID;
@@ -44,13 +55,31 @@ public class MainActivity extends FragmentActivity {
 	private ViewPager mViewPager;
 	private String url = "http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=/sv-se&type=-1&id=&period=&week=&mode=2&printer=0&colors=32&head=0&clock=0&foot=0&day=&width=&height=";
     private String freeTextBox;
+
+    private DisplayImageOptions options;
+    private ImageLoaderConfiguration config;
+    private double heightPercent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+
+
+
+
+
 		setContentView(R.layout.activity_main);
         Log.i("NovaScheduler", "OnCreate()");
+
+        toolbar = (Toolbar)findViewById(R.id.ToolBar);
+
+
+        setActionBarTitle();
+        setSupportActionBar(toolbar);
+        toolbar.bringToFront();
+        toolbar.inflateMenu(R.menu.main);
+        toolbar.setTitle("Testarrrrr");
 		
 		//Initiera appinställningar
 		appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -151,7 +180,18 @@ public class MainActivity extends FragmentActivity {
 	
 	public void setActionBarTitle()
 	{
-		getActionBar().setTitle(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
+		//getActionBar().setTitle(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
+        try
+        {
+            if (toolbar != null)
+            toolbar.setTitle(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
+        }
+        catch (NullPointerException e)
+        {
+            if (toolbar != null)
+            toolbar.setTitle("Hejhej");
+        }
+
 	}
 
     public void initDayWeek()
@@ -187,14 +227,26 @@ public class MainActivity extends FragmentActivity {
 
     public void initVars()
     {
+
         appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         //Få spinner att ligga till höger i ActionBar
         layoutParams = new ActionBar.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+                Gravity.RIGHT | Gravity.END);
 
-        mSpinner = new Spinner(this);
+        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        View spinnerContainer = LayoutInflater.from(this).inflate(R.layout.toolbar_spinner,toolbar,false);
+        toolbar.addView(spinnerContainer, lp);
+
+        //mSpinner = new Spinner(this);
+        mSpinner = (Spinner)spinnerContainer.findViewById(R.id.toolbar_spinner);
 
         choises = new ArrayList<String>();
         mViewPager = (ViewPager)findViewById(R.id.pager);
@@ -242,8 +294,46 @@ public class MainActivity extends FragmentActivity {
         mSpinner.setAdapter(mSpinnerAdapter);
         mSpinner.setOnItemSelectedListener(onItemSelectedListener);
 
-        getActionBar().setCustomView(mSpinner, layoutParams);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
+        //getActionBar().setCustomView(mSpinner, layoutParams);
+        //getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
+
+
+        heightPercent = 95;
+
+        options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).showImageOnFail(R.drawable.noschedule)
+                .showImageForEmptyUri(R.drawable.noschedule).preProcessor(new BitmapProcessor() {
+            @Override
+            public Bitmap process(Bitmap bm) {
+                Bitmap resizedBitmap = null;
+
+                try {
+
+                    int width = (bm.getWidth() - 5);
+                    int height = bm.getHeight();
+
+                    //int startwidth = (width/5)*position;
+                    //int scaleWidth = (int)(width/amount);
+                    int startwidth = 0;
+                    int scaleWidth = width;
+                    int scaleHeight = (int)((heightPercent / 100) * height);
+
+                    //resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
+                    resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
+                }
+                catch (NullPointerException e)
+                {
+                    resizedBitmap = null;
+                }
+                if (resizedBitmap != bm)
+                {
+                    bm.recycle();
+                }
+                return resizedBitmap;
+            }
+        }).build();
+
+        config = new ImageLoaderConfiguration.Builder(getApplicationContext()).defaultDisplayImageOptions(options).threadPriority(1).threadPoolSize(1).build();
+        ImageLoader.getInstance().init(config);
 
     }
 
@@ -378,5 +468,20 @@ public class MainActivity extends FragmentActivity {
     public boolean getStatus()
     {
         return active;
+    }
+
+    private static Bitmap cropImage (Bitmap imgBitmap, int x, int y)
+    {
+        int xSize = x;
+        int ySize = y;
+
+        Bitmap result = null;
+
+        if (imgBitmap != null)
+        {
+            result = Bitmap.createBitmap(imgBitmap, 0, (imgBitmap.getHeight() - ySize), xSize, ySize, null, false);
+
+        }
+        return result;
     }
 }

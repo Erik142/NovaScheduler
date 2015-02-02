@@ -6,19 +6,21 @@ import android.widget.Spinner;
 
 public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 
-	
-	public ViewPager mViewPager;
-	public TabsPagerAdapter mTabsPagerAdapter;
+    public final String APP_NAME = "NovaScheduler";
+
+	private TabsPagerAdapter mTabsPagerAdapter;
     private final int NUM_PAGES;
     public boolean spinnerByCode;
-    private final Spinner mSpinner;
+    //private final Spinner mSpinner;
     private boolean isActive = false;
+    private PageChangeInterface PCInterface;
 
-    public myPageChangeListener(int pages, Spinner mSpinner)
+    public myPageChangeListener(int pages, TabsPagerAdapter tpa, PageChangeInterface PCI)
     {
+        this.PCInterface = PCI;
+        this.mTabsPagerAdapter = tpa;
         this.NUM_PAGES = pages - 1;
-        this.mSpinner = mSpinner;
-        Log.i("NovaScheduler", "myPageChangeListener, NUM_PAGES = " + this.NUM_PAGES);
+        Log.i(APP_NAME, "myPageChangeListener, NUM_PAGES = " + this.NUM_PAGES);
     }
 	
 	@Override
@@ -36,21 +38,23 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 	@Override
 	public void onPageSelected(int position) {
         // TODO Auto-generated method stub
-        Log.i("NovaScheduler", "OnPageSelected Position: " + position);
+        Log.i(APP_NAME, "OnPageSelected Position: " + position);
 
         this.isActive = true;
 
         if (position == 0) {
-            mViewPager.setCurrentItem((mTabsPagerAdapter.NUM_PAGES), false);
+            PCInterface.setViewPagerPosition((mTabsPagerAdapter.NUM_PAGES), false);
             this.spinnerByCode = true;
-            mSpinner.setSelection(51);
+            //mSpinner.setSelection(51);
+            PCInterface.updateSpinner(51, true);
             //this.spinnerByCode = false;
             //mTabsPagerAdapter.notifyDataSetChanged();
         }
         if (position == mTabsPagerAdapter.NUM_PAGES + 1) {
-            mViewPager.setCurrentItem(1, false);
+            PCInterface.setViewPagerPosition(1, false);
             this.spinnerByCode = true;
-            mSpinner.setSelection(0);
+            //mSpinner.setSelection(0);
+            PCInterface.updateSpinner(0, true);
             //this.spinnerByCode = false;
 
         }
@@ -62,11 +66,13 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
             if ((position % 5) == 0)
             {
                 this.spinnerByCode = true;
-                mSpinner.setSelection((position/5)-1);
+                //mSpinner.setSelection((position/5)-1);
+                PCInterface.updateSpinner((position/5)-1, true);
             }
-            else {
+            else if ((position % 5) == 1) {
                 this.spinnerByCode = true;
-                mSpinner.setSelection((position/5));
+                //mSpinner.setSelection((position/5));
+                PCInterface.updateSpinner((position/5), true);
             }
         }
         //this.spinnerByCode = false;
@@ -78,16 +84,11 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
         return this.isActive;
     }
 
-    public void updateSpinner(int position)
-    {
-        while (operationActive())
-        {
 
-        }
-        if (!spinnerByCode) {
-            mViewPager.setCurrentItem((5 * (position + 1) - 4));
-        }
-        spinnerByCode = false;
+    public interface PageChangeInterface {
+        public void updateSpinner(int week, boolean spinnerByCode);
+        public void setViewPagerPosition(int position, boolean animate);
+
     }
 
 }

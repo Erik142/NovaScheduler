@@ -7,13 +7,13 @@
 
     <TextView
         android:id="@android:id/text1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:drawablePadding="8dp"
         android:gravity="center_vertical|start"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textColor="#FFFFFFFF"
+        android:textColor="@color/PopupMenuTextColor"
         android:textSize="16sp"/>
 
 </LinearLayout>

@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:dropDownSelector">@color/colorBackground</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="actionModeBackground">@color/colorBackground</item>
+        <item name="colorControlNormal">@color/ToolBarTextColor</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <style name="Widget.MyApp.HeaderBar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:background">?android:selectableItemBackground</item>
-        <item name="android:dropDownSelector">?android:selectableItemBackground</item>
-        <item name="android:divider">@null</item>
+    <style name="AppTheme" parent="AppTheme.Base">
+
+    </style>
+
+    <style name="ToolBarItemsText">
+        <item name="android:textColor">@color/ToolBarTextColor</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/ToolBarTextColor</item>
+        <item name="android:textColorSecondary">@color/ToolBarTextColor</item>
+        <item name="android:actionBarWidgetTheme">@style/AppTheme.PopupMenu</item>
+    </style>
+
+    <style name="AppTheme.PopupMenu" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:popupBackground">@color/ToolBarTextColor</item>
+        <item name="android:background">@color/colorBackground</item>
+        <item name="android:textColorPrimary">@color/PopupMenuTextColor</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:textSize">20dp</item>
     </style>
 </resources>

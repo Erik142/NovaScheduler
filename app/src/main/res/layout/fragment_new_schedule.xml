@@ -1,0 +1,55 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.erik.novascheduler.newScheduleFragment"
+    android:weightSum="1">
+
+    <!-- TODO: Update blank fragment layout -->
+    <Spinner
+        android:id="@+id/schoolSpinner"
+        android:entries="@array/schoolArray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_weight="0.04" />
+
+    <EditText
+        android:id="@+id/freeTextBoxEdit"
+        android:hint="@string/newScheduleNameHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ladda när appen öppnas"
+        android:id="@+id/defaultCheckBox" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonCancel"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/acceptButton"
+            android:layout_toStartOf="@+id/acceptButton" />
+
+        <Button
+            android:id="@+id/acceptButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonAccept"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        
+        </RelativeLayout>
+
+</LinearLayout>

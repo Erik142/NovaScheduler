@@ -1,15 +1,18 @@
 package com.erik.novascheduler;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends ActionBarActivity {
+
+    public final String APP_NAME = "NovaScheduler";
 
 	private int schoolID;
 	private String freeTextBox;
@@ -18,8 +21,17 @@ public class SettingsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.ToolBar);
+        toolbar.hideOverflowMenu();
+        toolbar.getMenu().clear();
+        setSupportActionBar(toolbar);
+
+
+
 		getFragmentManager().beginTransaction()
-        .replace(android.R.id.content, new SettingsFragment())
+        .replace(R.id.content_frame, new SettingsFragment())
         .commit();
 		
 		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -47,29 +59,7 @@ public class SettingsActivity extends Activity {
 	protected void onDestroy()
 	{
 		super.onDestroy();
-		
-		if (!isSettingsEmpty())
-		{
-			if (MainActivity.class.isInstance(MainActivity.mainActivity))
-			{
-                if (!((MainActivity)MainActivity.mainActivity).getStatus()) {
-                    ((MainActivity) MainActivity.mainActivity).initDayWeek();
-                    ((MainActivity) MainActivity.mainActivity).initVars();
-                    ((MainActivity) MainActivity.mainActivity).prepareForDownload();
-                    ((MainActivity) MainActivity.mainActivity).DownloadTodaysSchedule();
-                    ((MainActivity) MainActivity.mainActivity).setActionBarTitle();
-                }
-                else
-                {
-                    ((MainActivity)MainActivity.mainActivity).updateURL();
-                    ((MainActivity) MainActivity.mainActivity).setActionBarTitle();
-                }
-			}
-            else
-            {
-                startActivity(new Intent(this, MainActivity.class));
-            }
-		}
+
 	}
 
 	@Override
@@ -102,7 +92,7 @@ public class SettingsActivity extends Activity {
     public void onBackPressed() {
         if (!isSettingsEmpty())
         {
-            finish();
+            this.finish();
         }
         else
         {
@@ -116,7 +106,15 @@ public class SettingsActivity extends Activity {
         {
             schoolID = Integer.parseInt(mPreferences.getString("school_key", null));
             freeTextBox = mPreferences.getString("freeTextBox_key", null);
-            return false;
+            Log.i(APP_NAME, "isSettingsEmpty, schoolID = " + schoolID);
+            Log.i(APP_NAME, "isSettingsEmpty, freeTextBox = " + freeTextBox);
+            if (freeTextBox != "" && schoolID != 0) {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         catch (Exception e)
         {

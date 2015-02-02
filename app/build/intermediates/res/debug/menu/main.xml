@@ -18,5 +18,12 @@
         app:showAsAction="never"
         android:title="@string/todays_schedule"/>
 
+    <item
+        android:id="@+id/new_schedule"
+        android:orderInCategory="70"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_action_new"
+        android:title="@string/new_schedule"/>
+
 </menu>
 <!-- From: file:/G:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/menu/main.xml -->

@@ -9,7 +9,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class TabsPagerAdapter extends FragmentStatePagerAdapter {
-	
+
+    public final String APP_NAME = "NovaScheduler";
+
 	private final CharSequence[] pageTitles = {"Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"};
 	public final int NUM_PAGES;
     private String url;
@@ -20,7 +22,7 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 
         this.url = url;
 
-        Log.i("NovaScheduler", "Skottår: " + isLeapYear());
+        Log.i(APP_NAME, "Skottår: " + isLeapYear());
         if (isLeapYear())
         {
             this.NUM_PAGES = 261;
@@ -94,6 +96,6 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     public void updateURL(String newUrl)
     {
         this.url = newUrl;
-        Log.i("NovaScheduler", "TabsPagerAdapter, updated url: " + url);
+        Log.i(APP_NAME, "TabsPagerAdapter, updated url: " + url);
     }
 }

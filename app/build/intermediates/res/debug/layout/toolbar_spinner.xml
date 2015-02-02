@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
 
     <Spinner
         android:id="@+id/toolbar_spinner"
-        style="@style/Widget.MyApp.HeaderBar.Spinner"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="end"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
-</LinearLayout><!-- From: file:/G:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/layout/toolbar_spinner.xml -->
+</RelativeLayout><!-- From: file:/G:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/layout/toolbar_spinner.xml -->

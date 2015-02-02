@@ -4,12 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class mySpinnerAdapter extends BaseAdapter {
+public class mySpinnerAdapter extends ArrayAdapter<String> {
 
 	private final List<String> mList;
 	private final LayoutInflater mInflater;
@@ -17,7 +18,8 @@ public class mySpinnerAdapter extends BaseAdapter {
 	
 	public mySpinnerAdapter(Context parentContext, List<String> stringList)
 	{
-		mList = stringList;
+        super(parentContext,0,stringList);
+        mList = stringList;
 		mInflater = (LayoutInflater)parentContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         appContext = parentContext.getApplicationContext();
 	}
@@ -29,7 +31,7 @@ public class mySpinnerAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int arg0) {
+	public String getItem(int arg0) {
 		// TODO Auto-generated method stub
 		return mList.get(arg0);
 	}

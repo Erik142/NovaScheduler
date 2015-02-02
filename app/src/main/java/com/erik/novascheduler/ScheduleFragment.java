@@ -14,6 +14,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class ScheduleFragment extends Fragment implements UpdateableFragment {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
+
+    public final String APP_NAME = "NovaScheduler";
 	
 	private ImageView mImageView;
 	private int argPosition, NUM_PAGES;
@@ -53,8 +55,6 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
         View rootView = inflater.inflate(R.layout.scheduleactivity, container, false);
         mImageView = (ImageView)rootView.findViewById(R.id.mImageView);
 
-
-
         loadBitmap();
 
         return rootView;
@@ -68,11 +68,11 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
             if (argPosition % 5 == 0)
             {
                 week = (argPosition / 5);
-                Log.i("NovaScheduler", "Apply bitmap, week: " + week);
+                Log.i(APP_NAME, "Apply bitmap, week: " + week);
             }
             else {
                 week = (argPosition / 5) + 1;
-                Log.i("NovaScheduler", "Apply bitmap, week: " + week);
+                Log.i(APP_NAME, "Apply bitmap, week: " + week);
             }
 
             url = url.replace("week=", ("week=" + week));
@@ -80,7 +80,7 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
 
 
 
-            Log.i("NovaScheduler", "weekURL: " + url);
+            Log.i(APP_NAME, "weekURL: " + url);
 
             if (argPosition == NUM_PAGES+1)
             {
@@ -119,11 +119,10 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
 
     @Override
     public void update(String newUrl) {
-        if (!url.equals(newUrl))
-        {
+
             url = newUrl;
             loadBitmap();
-        }
+
     }
 }
 

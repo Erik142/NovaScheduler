@@ -1,15 +1,13 @@
 package com.erik.novascheduler;
 
-import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,17 +15,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -38,13 +31,9 @@ import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements multiInterface {
 
@@ -54,13 +43,12 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
     private Toolbar toolbar;
     private SharedPreferences appPreferences;
-    private View spinnerContainer;
-    private TextView titleTextView;
-    ActionBar.LayoutParams lp;
 
-    private String freeTextBox;
+    private String freeTextBox, currentFreeTextBox;
     private int schoolID;
     private double heightPercent;
+
+    private FloatingActionButton addButton;
 
     private List<String> choises;
     private Spinner mSpinner;
@@ -99,14 +87,17 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
         leftSliderData = new ArrayList<schemaDrawerItem>();
         initView();
 
-        toolbar.setTitle("");
+        //toolbar.setTitle("");
+        toolbar = (Toolbar)findViewById(R.id.ToolBar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //getSupportActionBar().setDisplayShowCustomEnabled(true);
 
         initDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("");
         drawerToggle.syncState();
 
         spinnerByCode = false;
@@ -151,7 +142,6 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
     private void initView() {
         leftDrawerList = (ListView) findViewById(R.id.left_drawer);
-        toolbar = (Toolbar)findViewById(R.id.ToolBar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationDrawerAdapter=new NavigationDrawerAdapter(getApplicationContext(), this, R.layout.navigation_drawer_item, leftSliderData);
         leftDrawerList.setAdapter(navigationDrawerAdapter);
@@ -165,8 +155,12 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
-                getSupportActionBar().setTitle("");
-                getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+                getSupportActionBar().setTitle(currentFreeTextBox);
+                //getSupportActionBar().setDisplayShowCustomEnabled(true);
+                mSpinner.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.GONE);
+
 
             }
 
@@ -174,8 +168,11 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+
                 getSupportActionBar().setTitle(R.string.app_name);
-                getSupportActionBar().setDisplayShowCustomEnabled(false);
+                mSpinner.setVisibility(View.GONE);
+                addButton.setVisibility(View.VISIBLE);
+                //getSupportActionBar().setDisplayShowCustomEnabled(false);
 
             }
         };
@@ -185,16 +182,41 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 setFragment(navigationDrawerAdapter.getItem(position), position);
+
+                leftDrawerList.setItemChecked(position, true);
+            }
+        });
+
+        leftDrawerList.setOnItemLongClickListener(new ListView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(APP_NAME, "Long clicked");
+                //navigationDrawerAdapter.remove(navigationDrawerAdapter.getItem(position));
+                editSchedule(navigationDrawerAdapter.getItem(position));
+                return true;
             }
         });
     }
 
     public void setFragment(schemaDrawerItem item, int position)
     {
+        currentFreeTextBox = item.getFreeTextBox();
         pagerFragment = PagerFragment.newInstance(item.getURL());
 
         leftDrawerList.setItemChecked(position, true);
         drawerLayout.closeDrawers();
+        getSupportActionBar().setTitle(item.getFreeTextBox());
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, pagerFragment).commit();
+    }
+
+    public void setPlaceHolderFragment()
+    {
+        currentFreeTextBox = "";
+        pagerFragment = PagerFragment.newInstance("");
+
+        drawerLayout.closeDrawers();
+        getSupportActionBar().setTitle("");
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, pagerFragment).commit();
     }
@@ -202,17 +224,8 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
     public void initEverything()
     {
 
-        lp = new ActionBar.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        spinnerContainer = LayoutInflater.from(this).inflate(R.layout.toolbar_spinner, toolbar, false);
-        getSupportActionBar().setCustomView(spinnerContainer, lp);
-
-        //titleTextView = (TextView)spinnerContainer.findViewById(R.id.toolbar_name);
-        //titleTextView = (TextView)findViewById(R.id.toolbar_name);
-
-        mSpinner = (Spinner)spinnerContainer.findViewById(R.id.toolbar_spinner);
-        //mSpinner = (Spinner)findViewById(R.id.toolbar_spinner);
+        addButton = (FloatingActionButton)findViewById(R.id.addButton);
+        mSpinner = (Spinner)findViewById(R.id.toolbar_spinner);
 
         choises = new ArrayList<String>();
 
@@ -222,10 +235,7 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
         }
 
-        mSpinnerAdapter = new mySpinnerAdapter(this, choises);
-
-
-
+        mSpinnerAdapter = new mySpinnerAdapter(getSupportActionBar().getThemedContext(), choises);
 
         AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
 
@@ -236,10 +246,13 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
                 Log.i("NovaScheduler", "onItemSelected, position: " + position);
 
-                if (!spinnerByCode) {
+                Log.i(APP_NAME, "onItemSelected, getTag(): " + mSpinner.getTag());
+                if (mSpinner.getTag() == "user") {
                     pagerFragment.setPosition((5 * (position + 1) - 4));
+                    return;
                 }
-                spinnerByCode = false;
+
+                mSpinner.setTag("user");
 
                 //mPageChangeListener.updateSpinner(position);
             }
@@ -254,6 +267,13 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
         mSpinner.setAdapter(mSpinnerAdapter);
         mSpinner.setOnItemSelectedListener(onItemSelectedListener);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newSchedule();
+            }
+        });
 
         heightPercent = 95;
 
@@ -271,11 +291,10 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
                             //int startwidth = (width/5)*position;
                             //int scaleWidth = (int)(width/amount);
                             int startwidth = 0;
-                            int scaleWidth = width;
                             int scaleHeight = (int)((heightPercent / 100) * height);
 
                             //resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
-                            resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, scaleWidth, scaleHeight, null, false);
+                            resizedBitmap = Bitmap.createBitmap(cropImage(bm, (width), (height)), startwidth, height-scaleHeight, width, scaleHeight, null, false);
                         }
                         catch (NullPointerException e)
                         {
@@ -318,44 +337,26 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
         URLList = new ArrayList<String>();
         URLList.addAll(Arrays.asList(appPreferences.getString(URL_KEY, null).split("\\|")));
 
+        Log.i(APP_NAME, "Stored URLs: " + appPreferences.getString(URL_KEY, null));
         String defaultURL = schemaDrawerItem.getDefaultURL(URLList);
         Log.i(APP_NAME, "defaultURL: " + defaultURL);
 
         pagerFragment = PagerFragment.newInstance(defaultURL);
 
-        ArrayList<schemaDrawerItem> addList = new ArrayList<schemaDrawerItem>();
-        ArrayList<String> tmpArray = schemaDrawerItem.getDefiniteURLs(appPreferences.getString(URL_KEY,null).split("\\|"));
+        leftSliderData.addAll(schemaDrawerItem.getDrawerList(appPreferences.getString(URL_KEY, null)));
+        sortLeftSliderData();
 
-        for (int i=0; i < tmpArray.size(); i++)
-        {
-            addList.add(new schemaDrawerItem(tmpArray.get(i)));
-        }
+        //navigationDrawerAdapter.addAll(addList);
+        navigationDrawerAdapter.notifyDataSetChanged();
 
-        navigationDrawerAdapter.addAll(addList);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,pagerFragment).commit();
+        setFragment(new schemaDrawerItem(defaultURL), navigationDrawerAdapter.getPosition(new schemaDrawerItem(defaultURL)));
+        //getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,pagerFragment).commit();
 
         /*schoolID = Integer.parseInt(appPreferences.getString("school_key", null).trim());
         freeTextBox = appPreferences.getString("freeTextBox_key", null);
 
         Log.i("NovaScheduler", "freeTextBox: " + freeTextBox);
         Log.i("NovaScheduler", "New GregorianCalendarWeek: " + new GregorianCalendar().get(Calendar.WEEK_OF_YEAR));*/
-    }
-
-    @Override
-    public void setActionBarTitle()
-    {
-        //getActionBar().setTitle(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
-        try
-        {
-
-            //titleTextView.setText(appPreferences.getString("freeTextBox_key", null).toUpperCase(Locale.getDefault()));
-        }
-        catch (NullPointerException e)
-        {
-
-        }
-
     }
 
     @Override
@@ -385,7 +386,7 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = drawerLayout.isDrawerOpen(GravityCompat.START);
 
-        menu.findItem(R.id.new_schedule).setVisible(drawerOpen);
+        //menu.findItem(R.id.new_schedule).setVisible(drawerOpen);
         menu.findItem(R.id.refresh).setVisible(!drawerOpen);
 
         return super.onPrepareOptionsMenu(menu);
@@ -415,9 +416,9 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
             return true;
 
-        case R.id.new_schedule:
+        /*case R.id.new_schedule:
 
-            newSchedule();
+            newSchedule();*/
 
 		default:
 			return super.onOptionsItemSelected(item);
@@ -443,7 +444,6 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
                 {
                     pagerFragment = PagerFragment.newInstance(url);
                     getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, pagerFragment).commit();
-                    setActionBarTitle();
                     Log.i("NovaScheduler", "Loading new schedule");
                 }
                 else {
@@ -471,12 +471,13 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
     }
 
     @Override
-    public void updateSpinner(int week, boolean spinnerByCode) {
+    public void updateSpinner(int week) {
 
         Log.i("NovaScheduler", "updateSpinner()");
-        this.spinnerByCode = spinnerByCode;
-        if (mSpinner != null)
-        mSpinner.setSelection(week);
+        if (mSpinner != null) {
+            mSpinner.setTag("code");
+            mSpinner.setSelection(week);
+        }
     }
 
     private void newSchedule()
@@ -487,23 +488,92 @@ public class MainActivity extends ActionBarActivity implements multiInterface {
 
     }
 
+    private void editSchedule(schemaDrawerItem item)
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        newScheduleFragment fragment = newScheduleFragment.newInstance(item, this);
+        fragment.show(fm,"edit_schedule");
+    }
+
 
     @Override
-    public void onDialogCompleted(String url) {
+    public void onDialogCompleted(String url, String oldURL) {
 
         if (firstRun)
         {
             initEverything();
         }
 
-        schemaDrawerItem itemToAdd = new schemaDrawerItem(url);
+        Log.i(APP_NAME, "onDialogCompleted, newURL: " + url);
+        Log.i(APP_NAME, "onDialogCompleted, oldURL: " + oldURL);
 
-        drawerLayout.closeDrawers();
-        navigationDrawerAdapter.add(itemToAdd);
+        int addPosition;
 
-        pagerFragment = PagerFragment.newInstance(url);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,pagerFragment).commit();
+        schemaDrawerItem itemToAdd = null;
+        Log.i(APP_NAME, "onDialogCompleted, leftSliderData.size() = " + leftSliderData.size());
+        if (!leftSliderData.isEmpty()) {
+            addPosition = leftSliderData.size();
+        }
+        else
+        {
+            addPosition = 0;
+        }
+
+        if (!url.equals("")) {
+
+            itemToAdd = new schemaDrawerItem(url);
+
+            if (itemToAdd.isDefault())
+            {
+                for (int i = 0; i < leftSliderData.size(); i++)
+                {
+                    leftSliderData.get(i).setDefault(false);
+                }
+            }
+
+            drawerLayout.closeDrawers();
+            leftSliderData.add(itemToAdd);
+        }
+
+        if (!oldURL.trim().matches(""))
+        {
+            int removeposition = 0;
+            for (int i = 0; i < leftSliderData.size(); i++)
+            {
+                if (leftSliderData.get(i).getURL().equals(oldURL))
+                {
+                    removeposition = i;
+                    addPosition -= 1;
+                    break;
+                }
+            }
+            Log.i(APP_NAME, "onDialogCompleted, removeposition = " + removeposition);
+            leftSliderData.remove(removeposition);
+
+        }
+
+        sortLeftSliderData();
+        navigationDrawerAdapter.notifyDataSetChanged();
+
+        if (!url.equals("")) {
+            setFragment(itemToAdd, addPosition);
+        }
+        else
+        {
+            Log.i(APP_NAME, "onDialogCompleted, setPlaceHolderFragment()");
+            setPlaceHolderFragment();
+        }
 
 
+    }
+
+    public void sortLeftSliderData()
+    {
+        Collections.sort(leftSliderData, new Comparator<schemaDrawerItem>() {
+            @Override
+            public int compare(schemaDrawerItem item1, schemaDrawerItem item2) {
+                return item1.getFreeTextBox().compareTo(item2.getFreeTextBox());
+            }
+        });
     }
 }

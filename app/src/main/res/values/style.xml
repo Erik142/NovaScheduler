@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -9,7 +9,7 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="actionModeBackground">@color/colorBackground</item>
         <item name="colorControlNormal">@color/ToolBarTextColor</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base">
@@ -23,13 +23,8 @@
     <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/ToolBarTextColor</item>
         <item name="android:textColorSecondary">@color/ToolBarTextColor</item>
-        <item name="android:actionBarWidgetTheme">@style/AppTheme.PopupMenu</item>
-    </style>
-
-    <style name="AppTheme.PopupMenu" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:popupBackground">@color/ToolBarTextColor</item>
-        <item name="android:background">@color/colorBackground</item>
-        <item name="android:textColorPrimary">@color/PopupMenuTextColor</item>
+        <item name="android:spinnerItemStyle">@style/Spinner</item>
+        <item name="android:spinnerDropDownItemStyle">@style/Theme.AppCompat.Light</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -37,7 +32,19 @@
         <item name="color">@android:color/white</item>
     </style>
 
-    <style name="Spinner" parent="Widget.AppCompat.Spinner">
-        <item name="android:textSize">20dp</item>
+    <style name="AppTheme.spinnerDropDownItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textAppearance">@style/AppTheme.spinnerDropDownTextAppearance</item>
+    </style>
+
+    <style name="AppTheme.spinnerDropDownTextAppearance" parent="TextAppearance.AppCompat.Widget.DropDownItem">
+        <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="Spinner" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textAppearance">@style/AppTheme.SpinnerTextAppearance</item>
+    </style>
+
+    <style name="AppTheme.SpinnerTextAppearance" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#fff</item>
     </style>
 </resources>

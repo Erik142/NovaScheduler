@@ -1,6 +1,0 @@
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\classes\debug
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-64db685f8ed116ebd84085748406ec1866708f75.jar
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-ab261929187f8cf7e6305f9de97cecb5724d8fab.jar
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-50aa4827436667193d101c057f4470d006301063.jar
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-4d8b854ff21325647dde0c658d7029ffc2a41449.jar
-G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-bd193963b449af40dc3c65b8964af56f369ed169.jar

@@ -1,11 +1,11 @@
 package com.erik.novascheduler;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -59,11 +59,12 @@ public class mySpinnerAdapter extends ArrayAdapter<String> {
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null || !view.getTag().toString().equals("NON_DROPDOWN")) {
             view = mInflater.inflate(R.layout.
-                    spinnerdropdownitem, parent, false);
+                    toolbar_spinner_item_dropdown, parent, false);
             view.setTag("NON_DROPDOWN");
         }
         TextView textView = (TextView) view.findViewById(android.R.id.text1);
         textView.setText(mList.get(position));
+        textView.setTextColor(Color.WHITE);
         return view;
     }
 

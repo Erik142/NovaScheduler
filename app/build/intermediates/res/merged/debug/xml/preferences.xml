@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+   
+    <ListPreference
+        android:key="school_key"
+        android:title="Skola"
+        android:entries="@array/schoolArray"
+        android:entryValues="@array/schoolArrayValues"
+        android:summary="Välj din skola"/>
+    
+    <EditTextPreference
+        android:dialogTitle="Schema"
+        android:title="Klass/Personnummer"
+        android:summary=""
+        android:dialogMessage="Skriv in din klass eller personnummer"
+        android:defaultValue=""
+        android:key="freeTextBox_key"/>
+
+</PreferenceScreen>
+<!-- From: file:/F:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/xml/preferences.xml -->

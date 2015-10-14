@@ -2,7 +2,6 @@ package com.erik.novascheduler;
 
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.widget.Spinner;
 
 public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 
@@ -10,7 +9,6 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 
 	private TabsPagerAdapter mTabsPagerAdapter;
     private final int NUM_PAGES;
-    public boolean spinnerByCode;
     //private final Spinner mSpinner;
     private boolean isActive = false;
     private PageChangeInterface PCInterface;
@@ -44,17 +42,15 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 
         if (position == 0) {
             PCInterface.setViewPagerPosition((mTabsPagerAdapter.NUM_PAGES), false);
-            this.spinnerByCode = true;
             //mSpinner.setSelection(51);
-            PCInterface.updateSpinner(51, true);
+            PCInterface.updateSpinner(51);
             //this.spinnerByCode = false;
             //mTabsPagerAdapter.notifyDataSetChanged();
         }
         if (position == mTabsPagerAdapter.NUM_PAGES + 1) {
             PCInterface.setViewPagerPosition(1, false);
-            this.spinnerByCode = true;
             //mSpinner.setSelection(0);
-            PCInterface.updateSpinner(0, true);
+            PCInterface.updateSpinner(0);
             //this.spinnerByCode = false;
 
         }
@@ -65,29 +61,21 @@ public class myPageChangeListener implements ViewPager.OnPageChangeListener {
 
             if ((position % 5) == 0)
             {
-                this.spinnerByCode = true;
                 //mSpinner.setSelection((position/5)-1);
-                PCInterface.updateSpinner((position/5)-1, true);
+                PCInterface.updateSpinner((position/5)-1);
             }
             else if ((position % 5) == 1) {
-                this.spinnerByCode = true;
                 //mSpinner.setSelection((position/5));
-                PCInterface.updateSpinner((position/5), true);
+                PCInterface.updateSpinner((position/5));
             }
         }
         //this.spinnerByCode = false;
-        this.isActive = false;
 	}
-
-    public boolean operationActive()
-    {
-        return this.isActive;
-    }
 
 
     public interface PageChangeInterface {
-        public void updateSpinner(int week, boolean spinnerByCode);
-        public void setViewPagerPosition(int position, boolean animate);
+        void updateSpinner(int week);
+        void setViewPagerPosition(int position, boolean animate);
 
     }
 

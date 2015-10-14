@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="@string/action_settings"/>
+    <item 
+        android:id="@+id/refresh"
+        android:orderInCategory="90"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/refresh"/>
+    <item
+        android:id="@+id/todays_schedule"
+        android:orderInCategory="80"
+        app:showAsAction="never"
+        android:title="@string/todays_schedule"/>
+
+</menu>
+<!-- From: file:/F:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/menu/main.xml -->

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#37474F</color>
-    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
 
-    <color name="colorSecondary">@color/material_deep_teal_200</color>
-    <color name="colorSecondaryDark">@color/material_deep_teal_500</color>
-
-    <color name="android:windowBackgroundColor">#FFFFFFFF</color>
-    <color name="android:colorBackground">#FFFFFFFF</color>
+    <color name="android.windowBackgroundColor">#FFFFFFFF</color>
+    <color name="android.colorBackground">#FFFFFFFF</color>
     <color name="black_translucent">#80000000</color>
 
     <color name="colorBackground">#FFFFFFFF</color>

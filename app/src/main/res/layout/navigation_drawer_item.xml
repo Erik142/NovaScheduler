@@ -17,6 +17,7 @@
     android:id="@+id/scheduleSchool"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/dim_foreground_disabled_material_dark"/>
+    android:textColor="@color/dim_foreground_material_light"
+    android:layout_marginBottom="10dp"/>
 
 </LinearLayout>

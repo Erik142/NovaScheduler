@@ -3,7 +3,6 @@ package com.erik.novascheduler;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,20 +17,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -96,8 +84,15 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mURL = getArguments().getString(ARG_URL);
+            try {
+                mURL = getArguments().getString(ARG_URL).split(";")[0];
+            }
+            catch (Exception e)
+            {
+                mURL = "";
+            }
         }
+
     }
 
     @Override
@@ -168,16 +163,14 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
     public void DownloadAndUpdate()
     {
         //mViewPager.setCurrentItem(((5 * week)-(5-dayOfWeek)));
-        mListener.setActionBarTitle();
         mTabsPagerAdapter.notifyDataSetChanged();
     }
 
     public void DownloadTodaysSchedule()
     {
         mViewPager.setCurrentItem(((5 * week)-(5-dayOfWeek)));
-        //mListener.updateSpinner(week-1,true);
-        mListener.setActionBarTitle();
-        //mTabsPagerAdapter.notifyDataSetChanged();
+        mListener.updateSpinner(week - 1);
+
     }
 
     public void setPosition(int position)
@@ -187,7 +180,7 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
 
     public void setPosition(int position, boolean animate)
     {
-        mViewPager.setCurrentItem(position,animate);
+        mViewPager.setCurrentItem(position, animate);
     }
 
     public void initDayWeek()
@@ -218,7 +211,7 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
 
         Log.i(APP_NAME, "dayofWeek: " + dayOfWeek);
         Log.i(APP_NAME, "week: " + week);
-        Log.i(APP_NAME, "viewPager Start position: " + ((5 * week)-(5-dayOfWeek)));
+        Log.i(APP_NAME, "viewPager Start position: " + ((5 * week) - (5 - dayOfWeek)));
     }
 
     public void initVars()
@@ -229,163 +222,15 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
                 ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT,
                 Gravity.RIGHT | Gravity.END);
 
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-
-        //getSupportActionBar().setDisplayShowTitleEnabled(true);
-
-
-        //mSpinner = new Spinner(this);
-
-
-
 
         mTabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager(), mURL);
 
         mPageChangeListener = new myPageChangeListener(mTabsPagerAdapter.getCount(), mTabsPagerAdapter, this);
-        //mPageChangeListener.mTabsPagerAdapter = mTabsPagerAdapter;
 
         mViewPager.setAdapter(mTabsPagerAdapter);
         mViewPager.setOffscreenPageLimit(5);  //Max 5 stycken inladdade dagar åt gången
-        mViewPager.setOnPageChangeListener(mPageChangeListener);
+        mViewPager.addOnPageChangeListener(mPageChangeListener);
 
-        //getActionBar().setCustomView(mSpinner, layoutParams);
-        //getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_TITLE);
-
-
-
-    }
-
-    public void prepareForDownload()
-    {
-        int width = 0;
-        int height = 0;
-        schoolID = 0;
-        freeTextBox = null;
-
-        appPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        //width = size.x * 5;
-        width = size.x;
-
-        if (size.x >= 1080)
-        {
-            width = (width/3);
-        }
-        else
-        {
-            width = width/2;
-        }
-
-
-        Log.i(APP_NAME, "Screen width: " + Integer.toString(width));
-
-        if (size.y >= 1920)
-        {
-            height = (int)((size.y/3)*(1-(1.8/10.6)));
-        }
-        else
-        {
-            height = (int)((size.y/2)*(1-(1.8/10.6)));
-        }
-
-
-
-
-        try {
-
-            schoolID = Integer.parseInt(appPreferences.getString("school_key", null).trim());
-            freeTextBox = appPreferences.getString("freeTextBox_key", null);
-
-
-        } catch (NumberFormatException e) {
-            // TODO: handle exception
-            if (e.equals(schoolID))
-            {
-                schoolID = 0;
-            }
-            if (e.equals(freeTextBox))
-            {
-                freeTextBox = null;
-            }
-        }
-
-        freeTextBox = freeTextBox.replace(" ", "");
-
-        mURL = mURL.replace("&schoolid=", ("&schoolid=" + schoolID));
-        mURL = mURL.replace("&id=", ("&id=" + freeTextBox));
-        mURL = mURL.replace("&width=", ("&width=" + width));
-        mURL = mURL.replace("&height=", "&height=" + height);
-        mURL = mURL.replace("Å", "%C3%85");
-        mURL = mURL.replace("Ä", "%C3%84");
-        mURL = mURL.replace("Ö", "%C3%96");
-
-        Log.i(APP_NAME, ("URL: " + mURL));
-
-        Log.i(APP_NAME, "freeTextBox: " + freeTextBox);
-        Log.i(APP_NAME, "New GregorianCalendarWeek: " + new GregorianCalendar().get(Calendar.WEEK_OF_YEAR));
-    }
-
-    public void updateURL()
-    {
-        appPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-
-        int oldSchoolID = schoolID;
-        String oldFreeTextBox = freeTextBox;
-
-        try {
-
-            schoolID = Integer.parseInt(appPreferences.getString("school_key", null).trim());
-            freeTextBox = appPreferences.getString("freeTextBox_key", null);
-
-            Log.i(APP_NAME, "new freeTextBox: " + freeTextBox);
-            Log.i(APP_NAME, "new schoolID: " + schoolID);
-
-            if (schoolID != oldSchoolID || !freeTextBox.equals(oldFreeTextBox))
-            {
-                if (oldFreeTextBox != null)
-                {
-
-                    mURL = mURL.replace(("&id=" + oldFreeTextBox), ("&id=" + freeTextBox));
-                }
-                else
-                {
-
-                    mURL = mURL.replace("&id=", ("&id=" + freeTextBox));
-                }
-
-                if (oldSchoolID != 0)
-                {
-                    mURL = mURL.replace(("&schoolid=" + oldSchoolID), ("&schoolid=" + schoolID));
-                }
-                else
-                {
-                    mURL = mURL.replace("&schoolid=", ("&schoolid=" + schoolID));
-                }
-            }
-
-            Log.i(APP_NAME, "new url: " + mURL);
-
-            mTabsPagerAdapter.updateURL(mURL);
-            mTabsPagerAdapter.notifyDataSetChanged();
-
-
-        } catch (NumberFormatException e) {
-            // TODO: handle exception
-            if (e.equals(schoolID))
-            {
-                schoolID = 0;
-            }
-            if (e.equals(freeTextBox))
-            {
-                freeTextBox = null;
-            }
-        }
     }
 
     public String getFreeTextBox()
@@ -398,14 +243,9 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
         return schoolID;
     }
 
-    public boolean getStatus()
-    {
-        return active;
-    }
-
     @Override
-    public void updateSpinner(int week, boolean spinnerByCode) {
-        mListener.updateSpinner(week,spinnerByCode);
+    public void updateSpinner(int week) {
+        mListener.updateSpinner(week);
     }
 
     @Override
@@ -415,9 +255,8 @@ public class PagerFragment extends Fragment implements myPageChangeListener.Page
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-        public void setActionBarTitle();
-        public void updateSpinner(int week, boolean spinnerByCode);
+        void onFragmentInteraction(Uri uri);
+        void updateSpinner(int week);
     }
 
 }

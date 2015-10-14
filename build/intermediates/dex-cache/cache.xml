@@ -2,39 +2,46 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.3\a85588bec3e2c4584d593d3f15df1677321bca72\universal-image-loader-1.9.3.jar"
+        jar="C:\Users\ErikWahlberger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
         jumboMode="false"
-        revision="21.1.1"
-        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.3-ab261929187f8cf7e6305f9de97cecb5724d8fab.jar" />
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-f3ae42b6d8c4076586f7501e644b8630ad22999e.jar" />
     </item>
     <item
-        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jar="C:\Users\ErikWahlberger\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.4\dd9eeb557650c4ad7394df23f0f5cf27a7cfc697\universal-image-loader-1.9.4.jar"
         jumboMode="false"
-        revision="21.1.1"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-4d8b854ff21325647dde0c658d7029ffc2a41449.jar" />
+        revision="22.0.1"
+        sha1="dd9eeb557650c4ad7394df23f0f5cf27a7cfc697">
+        <dex dex="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.4-b6663e05ee86a49d7d482154f45cf74c27d41a92.jar" />
     </item>
     <item
-        jar="C:\Users\ErikWahlberger\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="21.1.1"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-64db685f8ed116ebd84085748406ec1866708f75.jar" />
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-a6d2089c0dc70115829d1140b55ce0c356dd5eb8.jar" />
     </item>
     <item
-        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jar="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="21.1.1"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-50aa4827436667193d101c057f4470d006301063.jar" />
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-f783745776d9edcbf91c0900da834b3f23aebeaa.jar" />
     </item>
     <item
-        jar="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jar="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\design\22.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="21.1.1"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="G:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-bd193963b449af40dc3c65b8964af56f369ed169.jar" />
+        revision="22.0.1"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\classes-9086078e204b383af6d86ab4b53274705b7ddc64.jar" />
+    </item>
+    <item
+        jar="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="F:\Kompilerat\AndroidStudio\NovaScheduler\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-fe778bf2cca0bd7dd3312e7b364a1e50a35c08ef.jar" />
     </item>
 
 </items>

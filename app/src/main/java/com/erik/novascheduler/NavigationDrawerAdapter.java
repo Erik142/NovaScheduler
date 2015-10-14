@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by erikwahlberger on 2015-02-01.
@@ -19,13 +20,15 @@ public class NavigationDrawerAdapter extends ArrayAdapter<schemaDrawerItem> {
     Activity activity;
     int layoutResID;
     LayoutInflater mInflater;
+    ArrayList<schemaDrawerItem> list;
 
-    public NavigationDrawerAdapter(Context context, Activity MainActivity, int resourceID, List<schemaDrawerItem> objects) {
+    public NavigationDrawerAdapter(Context context, Activity MainActivity, int resourceID, ArrayList<schemaDrawerItem> objects) {
         super(context, resourceID, objects);
         this.layoutResID = resourceID;
         this.context = context;
         this.activity = MainActivity;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.list = objects;
     }
 
     @Override

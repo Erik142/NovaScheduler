@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:theme="@style/Theme.AppCompat.Light">
 
     <TextView
         android:id="@android:id/text1"
@@ -13,7 +15,8 @@
         android:gravity="center_vertical|start"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textColor="@color/PopupMenuTextColor"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:textColor="#000"/>
+    <!--android:textColor="@color/PopupMenuTextColor"-->
 
 </LinearLayout>

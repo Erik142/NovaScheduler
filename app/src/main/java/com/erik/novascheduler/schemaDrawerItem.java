@@ -17,6 +17,7 @@ public class schemaDrawerItem {
 
 
     private String url;
+    private Boolean isDefault;
     private static String baseURL = "http://www.novasoftware.se/ImgGen/schedulegenerator.aspx?format=png&schoolid=/sv-se&type=-1&id=&period=&week=&mode=2&printer=0&colors=32&head=0&clock=0&foot=0&day=&width=&height=";
 
     public static final String APP_NAME = "NovaScheduler";
@@ -24,6 +25,7 @@ public class schemaDrawerItem {
     public schemaDrawerItem(String url)
     {
         this.url = url;
+        this.isDefault = Boolean.parseBoolean(url.split(";")[1].split("=")[1]);
     }
 
     public String getSchool(Activity activity)
@@ -60,9 +62,24 @@ public class schemaDrawerItem {
         }
     }
 
+    public boolean isDefault()
+    {
+        Log.i(APP_NAME, "isDefault: " + url);
+        return this.isDefault;
+        //Log.i(APP_NAME, "isDefault: " + url);
+        //return true;
+    }
+
+    public void setDefault(Boolean Default)
+    {
+
+        url.replace(("default=" + String.valueOf(this.isDefault)),("default=" + String.valueOf(Default)));
+        this.isDefault = Default;
+    }
+
     public String getURL()
     {
-        return url;
+        return url.split(";")[0];
     }
 
     public String getFreeTextBox()
@@ -91,7 +108,9 @@ public class schemaDrawerItem {
             Log.i(APP_NAME, "tempArray[" + 1 + "] = " + tempArray[1]);
             if (tempArray[1].equals("default=true"))
             {
-                return tempArray[0];
+                Log.i(APP_NAME, "getDefaultURL: " + URLList.get(i));
+                return URLList.get(i);
+                //return tempArray[0];
             }
         }
 
@@ -163,16 +182,51 @@ public class schemaDrawerItem {
         return null;
     }
 
-    public static ArrayList<String> getDefiniteURLs(String[] inputURLs)
+    public static ArrayList<String> getDefiniteURLs(String inputURL)
     {
+        String[] inputURLs = inputURL.split("\\|");
         ArrayList<String> definiteURLs = new ArrayList<String>();
 
         for (int i=0; i < inputURLs.length; i++)
         {
             definiteURLs.add(inputURLs[i].split(";")[0]);
+            Log.i(APP_NAME, "getDefiniteURLs: " + inputURLs[i].split(";")[0]);
         }
 
+
         return definiteURLs;
+
+    }
+
+    public static ArrayList<Boolean> getDefaultBoolean(String inputURL)
+    {
+        String[] inputURLs = inputURL.split("\\|");
+        ArrayList<Boolean> defaultBoolean = new ArrayList<>();
+
+        for (int i=0; i < inputURLs.length; i++)
+        {
+            defaultBoolean.add(Boolean.parseBoolean(inputURLs[i].split(";")[1].split("=")[1]));
+            Log.i(APP_NAME, "getDefaultBoolean: " + inputURLs[i].split(";")[1].split("=")[1]);
+        }
+
+
+        return defaultBoolean;
+
+    }
+
+    public static ArrayList<schemaDrawerItem> getDrawerList(String inputURL)
+    {
+        String[] inputURLs = inputURL.split("\\|");
+        ArrayList<schemaDrawerItem> drawerList = new ArrayList<schemaDrawerItem>();
+
+        for (int i=0; i < inputURLs.length; i++)
+        {
+            drawerList.add(new schemaDrawerItem(inputURLs[i]));
+            //Log.i(APP_NAME, "getDefiniteURLs: " + inputURLs[i].split(";")[0]);
+        }
+
+
+        return drawerList;
 
     }
 }

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Acceptera"
+        android:id="@+id/accept_settings"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_action_accept"/>
+
+</menu>
+<!-- From: file:/F:/Kompilerat/AndroidStudio/NovaScheduler/app/src/main/res/menu/settings.xml -->

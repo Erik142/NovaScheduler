@@ -102,7 +102,6 @@ public class ScheduleFragment extends Fragment implements UpdateableFragment {
             //Picasso.with(getActivity().getApplicationContext()).load(url).placeholder(R.drawable.noschedule).transform(new BitmapResizeTransformation(argPosition,95)).into(mImageView);
 
             //Picasso.with(getActivity().getApplicationContext()).setIndicatorsEnabled(true);
-
             ImageLoader.getInstance().displayImage(url, mImageView);
 
         } catch (Exception e) {
